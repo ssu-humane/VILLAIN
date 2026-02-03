@@ -346,7 +346,7 @@ Examples:
         claim_text = sample['claim_text']
         claim_images = sample.get('claim_images', [])
         label = sample.get('label', '')
-        speaker = sample.get('speaker', 'Unknown')
+        speaker = sample['metadata'].get('speaker', 'Unknown')
         date = sample.get('date', 'Not Specified')
 
         result = pipeline.process_claim(
