@@ -1,0 +1,102 @@
+# Test configuration for Multi-Agent Fact-Checking Pipeline
+# Usage: python src/run_multi_agent.py --config scripts/cfg/default-test.yaml
+
+# =============================================================================
+# Data Paths
+# =============================================================================
+data:
+  data_path: "dataset/AVerImaTeC/test_data/test.json"
+  train_data_path: "dataset/AVerImaTeC/train.json"
+  image_dir: "dataset/AVerImaTeC/test_data/images"
+  output_dir: "outputs-final-test-gemini-2.5-pro"
+  target: "test"  # val, test, etc.
+
+# =============================================================================
+# Knowledge Store Paths
+# =============================================================================
+stores:
+  knowledge_store_path: "dataset/AVerImaTeC_Shared_Task/Knowledge_Store/test"
+  # Text embedding stores (for Agent 1 and Agent 2)
+  text_related_store_path: "dataset/AVerImaTeC_Shared_Task/Vector_Store/test/text_related/text_related_store_text_test_filled_0d3B"
+  image_related_store_path: "dataset/AVerImaTeC_Shared_Task/Vector_Store/test/text_related/image_related_store_text_test_filled_0d3B"
+  # Image embedding store (for Agent 3)
+  image_embedding_store_path: "dataset/AVerImaTeC_Shared_Task/Vector_Store/test/image_related_7B"
+
+# =============================================================================
+# Model Configuration
+# =============================================================================
+models:
+  text_model: "mixedbread-ai/mxbai-embed-large-v1"
+  text_model_type: "mxbai"  # Options: qwen, mxbai
+  image_model: "OpenSearch-AI/Ops-MM-embedding-v1-7B"
+  vlm_model: "gemini-2.5-pro"
+  reranker_model: "mixedbread-ai/mxbai-rerank-large-v1"
+  device: "cuda:0"
+
+# =============================================================================
+# Evidence Configuration
+# =============================================================================
+evidence:
+  num_text_text_evidence: 10   # Agent 1: text evidence from claim text
+  num_image_text_evidence: 10  # Agent 2: text evidence from claim image
+  # Agent 3: image evidence (image-image and text-image retrieval)
+  num_image_image_evidence_image: 1  # Top-k per claim image (image-to-image)
+  num_image_image_evidence_text: 5   # Top-k for claim text query (text-to-image)
+
+# =============================================================================
+# QA Generation Configuration (Agent 4 & 5)
+# =============================================================================
+qa_generation:
+  qa_per_iteration: 5      # Q-A pairs per iteration
+  max_qa_iterations: 4     # Number of iterations
+  max_qa_pairs: 20         # Max Q-A pairs to generate
+  num_qa_to_select: 10     # Q-A pairs to select for final output
+
+# =============================================================================
+# Retrieval Options
+# =============================================================================
+retrieval:
+  # HyDE (Hypothetical Document Embeddings) - enabled by default
+  # When enabled, generates a hypothesis fact-checking article and uses
+  # claim_text + hypothesis as query for Agents 1, 2, 3
+  use_hyde: false
+  hyde_max_tokens: 512     # Max tokens for hypothesis generation
+
+  # MMR (Maximal Marginal Relevance) - disabled by default
+  use_mmr: false
+  mmr_fetch_k: 40          # Candidates to fetch before MMR selection
+  mmr_lambda_mult: 0.7     # Balance between relevance (1.0) and diversity (0.0)
+
+  # Reranker - enabled by default
+  use_reranker: true
+  reranker_fetch_k: 100    # Candidates to fetch before reranking
+
+# =============================================================================
+# Processing Options
+# =============================================================================
+processing:
+  preload_models: true     # Preload all models before processing
+  max_samples: null        # Maximum samples to process (null = all)
+  save_intermediate_output: true  # Save all agent outputs (hyde, agent1-5)
+
+  # Parallel processing (set by SLURM array job, can override)
+  start_idx: null          # Start index (inclusive)
+  end_idx: null            # End index (exclusive)
+
+# =============================================================================
+# Evaluation Configuration
+# =============================================================================
+evaluation:
+  # API model (Gemini) - set to "" to use local model instead
+  api_model: "gemini-2.0-flash-001"
+  # Local model (used when api_model is empty)
+  eval_model: "google/gemma-3-27b-it"
+  # Enable justification evaluation (disabled by default to save time)
+  eval_justification: false
+
+# =============================================================================
+# SLURM Configuration (used by sbatch script, not by Python code)
+# =============================================================================
+slurm:
+  total_samples: 352
+  num_jobs: 352

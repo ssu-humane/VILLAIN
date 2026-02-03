@@ -1,2 +1,26 @@
-# VILLAIN
-FEVER-9-Shared-Task
+# VILLAIN at AVerImaTeC: Verifying Image–Text Claims via Multi-Agent Collaboration
+
+This repository contains the code for VILLAIN, the first-place system in the AVerImaTeC shared task.
+
+The system description paper will be published in the proceedings of the Ninth FEVER Workshop (co-located with EACL 2026).
+
+## Prepare Data
+
+Please refer to [DATASET.md](DATASET.md) for detailed instructions on preparing the dataset.
+
+## Quick Start
+
+```bash
+# 1. Setup environment variables
+cp .env.pub .env
+# Edit .env with your API keys
+
+# 2. Run the pipeline (uses scripts/cfg/default.yaml)
+./scripts/run_multi_agent_pipeline.sh
+
+# 3. Evaluate results
+./scripts/eval_multi_agent_pipeline.sh
+```
+
+# License & Attribution
+The code is shared under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0).

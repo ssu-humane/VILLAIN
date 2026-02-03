@@ -1,0 +1,16 @@
+# .gitignore
+
+# Environment variables and secrets
+.env
+
+# ignore pycache in all directories
+**/__pycache__
+
+# ignore Reference
+/Reference
+
+/logs
+/outputs*
+/playground
+/dataset
+!/dataset/DATASET.md
