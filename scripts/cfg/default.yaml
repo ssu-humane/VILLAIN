@@ -56,17 +56,6 @@ qa_generation:
 # Retrieval Options
 # =============================================================================
 retrieval:
-  # HyDE (Hypothetical Document Embeddings) - enabled by default
-  # When enabled, generates a hypothesis fact-checking article and uses
-  # claim_text + hypothesis as query for Agents 1, 2, 3
-  use_hyde: false
-  hyde_max_tokens: 512     # Max tokens for hypothesis generation
-
-  # MMR (Maximal Marginal Relevance) - disabled by default
-  use_mmr: false
-  mmr_fetch_k: 40          # Candidates to fetch before MMR selection
-  mmr_lambda_mult: 0.7     # Balance between relevance (1.0) and diversity (0.0)
-
   # Reranker - enabled by default
   use_reranker: true
   reranker_fetch_k: 100    # Candidates to fetch before reranking
