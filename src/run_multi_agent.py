@@ -219,15 +219,8 @@ Examples:
     num_qa_to_select = get_nested(cfg, 'qa_generation', 'num_qa_to_select', default=10)
 
     # Retrieval options (MMR disabled by default, reranker enabled by default)
-    use_mmr = get_nested(cfg, 'retrieval', 'use_mmr', default=False)
     use_reranker = get_nested(cfg, 'retrieval', 'use_reranker', default=True)
     reranker_fetch_k = get_nested(cfg, 'retrieval', 'reranker_fetch_k', default=100)
-    mmr_fetch_k = get_nested(cfg, 'retrieval', 'mmr_fetch_k', default=40)
-    mmr_lambda_mult = get_nested(cfg, 'retrieval', 'mmr_lambda_mult', default=0.7)
-
-    # HyDE (Hypothetical Document Embeddings) options
-    use_hyde = get_nested(cfg, 'retrieval', 'use_hyde', default=False)
-    hyde_max_tokens = get_nested(cfg, 'retrieval', 'hyde_max_tokens', default=512)
 
     # Processing options
     preload_models = args.preload_models or get_nested(cfg, 'processing', 'preload_models', default=False)
@@ -263,11 +256,6 @@ Examples:
         max_qa_iterations=max_qa_iterations,
         num_qa_to_select=num_qa_to_select,
         train_data_path=train_data_path,
-        use_hyde=use_hyde,
-        hyde_max_tokens=hyde_max_tokens,
-        use_mmr=use_mmr,
-        mmr_fetch_k=mmr_fetch_k,
-        mmr_lambda_mult=mmr_lambda_mult,
         use_reranker=use_reranker,
         reranker_fetch_k=reranker_fetch_k,
         agent_config=agent_config
@@ -285,8 +273,6 @@ Examples:
     print(f"  Agent 4 (QA Generation): {pipeline_config.qa_per_iteration} pairs × {pipeline_config.max_qa_iterations} iterations (max {pipeline_config.max_qa_pairs})")
     print(f"  Agent 5 (Verdict): select {pipeline_config.num_qa_to_select} Q-A pairs")
     print(f"\nRetrieval:")
-    print(f"  HyDE: {'Enabled' if use_hyde else 'Disabled'}" + (f" (max_tokens={hyde_max_tokens})" if use_hyde else ""))
-    print(f"  MMR: {'Enabled' if use_mmr else 'Disabled'}")
     print(f"  Reranker: {'Enabled' if use_reranker else 'Disabled'}" + (f" (fetch_k={reranker_fetch_k})" if use_reranker else ""))
     print(f"\nProcessing:")
     print(f"  Save intermediate outputs: {'Enabled' if save_intermediate_output else 'Disabled'}")
