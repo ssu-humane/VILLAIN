@@ -25,3 +25,11 @@ cp .env.pub .env
 
 # License & Attribution
 The code is shared under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0).
+```
+@article{jung2026villain,
+  title={VILLAIN at AVerImaTeC: Verifying Image-Text Claims via Multi-Agent Collaboration},
+  author={Jung, Jaeyoon and Yoon, Yejun and Yoon, Seunghyun and Park, Kunwoo},
+  journal={arXiv preprint arXiv:2602.04587},
+  year={2026}
+}
+```
