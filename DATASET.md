@@ -1,11 +1,11 @@
 ## Prepare data
 
-make dataset folder
+Make a dataset folder
 ```bash
 mkdir dataset
 ```
 
-download original averimatec dataset using git
+Download the original AVerImaTeC dataset using git
 ```bash
 git clone https://huggingface.co/datasets/Rui4416/AVerImaTeC
 ```
@@ -15,7 +15,7 @@ download knowledge store using gdown
 gdown --folder https://drive.google.com/drive/folders/1vjy7mjA4NTuLQfPh5-NZFpaxn8_H9rUs
 ```
 
-Unzip all .zip file, and place them into correct dataset folder. The structure are follows:
+Unzip all .zip files, and place them into the correct dataset folder. The structure is as follows:
 ```
 ┖ dataset
     ┖ AVerImaTeC (original averimatec dataset)
@@ -52,4 +52,23 @@ Unzip all .zip file, and place them into correct dataset folder. The structure a
                         └ {i}.json
                     └ text_related_store_text_test
                         └ {i}.json
+        ┖ Vector_Store (vector for the embedding model)
 ```
+
+## Knowledge store (Filled)
+
+We provide a **filled `text_related` knowledge store** for the **validation** and **test** splits, along with a **Vector Store** for persistence.
+
+Because generating embeddings for each knowledge store (for both **text** and **image**) can take a long time, we also release **precomputed embeddings** for:
+
+- the **original** knowledge base  
+- the **filled** knowledge base  
+
+This release includes:
+- the filled knowledge base files
+- the Vector Store (for saving/loading)
+- precomputed **text embeddings**
+- precomputed **image embeddings**
+
+You can download them from:  
+https://huggingface.co/datasets/humane-lab/AVerImaTeC-Filled
