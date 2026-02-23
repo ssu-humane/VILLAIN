@@ -9,6 +9,24 @@ The system description paper will be published in the proceedings of the Ninth F
 
 Please refer to [DATASET.md](DATASET.md) for detailed instructions on preparing the dataset.
 
+## Knowledge store (Filled)
+
+We provide a **filled `text_related` knowledge store** for the **validation** and **test** splits, along with a **Vector Store** for persistence.
+
+Because generating embeddings for each knowledge store (for both **text** and **image**) can take a long time, we also release **precomputed embeddings** for:
+
+- the **original** knowledge base  
+- the **filled** knowledge base  
+
+This release includes:
+- the filled knowledge base files
+- the Vector Store (for saving/loading)
+- precomputed **text embeddings**
+- precomputed **image embeddings**
+
+You can download them from:  
+https://huggingface.co/datasets/humane-lab/AVerImaTeC-Filled
+
 ## Quick Start
 
 ```bash
